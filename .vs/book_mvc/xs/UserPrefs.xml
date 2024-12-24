@@ -1,0 +1,43 @@
+﻿<Properties StartupConfiguration="{65AEBB9A-3B73-4208-AEEC-C7B82759F0B7}|https">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="book_mvc/Views/Book/Index.cshtml">
+    <Files>
+      <File FileName="book_mvc/Views/Book/Details.cshtml" />
+      <File FileName="book_mvc/Views/Book/Create.cshtml" />
+      <File FileName="book_mvc/Views/Book/Index.cshtml" Line="187" Column="15" />
+      <File FileName="book_mvc/Controllers/BookController.cs" />
+      <File FileName="book_mvc/Models/Entity/Book.cs" />
+      <File FileName="book_mvc/Models/Entity/Author.cs" />
+      <File FileName="book_mvc/Views/Book/Basket.cshtml" />
+      <File FileName="book_mvc/Views/Book/Cart.cshtml" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="book_mvc" expanded="True">
+            <Node name="book_mvc" expanded="True">
+              <Node name="Contexts" expanded="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="Entity" expanded="True" />
+                <Node name="ViewModels" expanded="True" />
+              </Node>
+              <Node name="Views" expanded="True">
+                <Node name="Book" expanded="True">
+                  <Node name="Index.cshtml" selected="True" />
+                </Node>
+                <Node name="Shared" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.book__mvc PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+</Properties>

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<book_mvc.Models.ViewModels.BookViewModel>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Səbət</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            .cart-item h3 {
+                margin: 0;
+                font-size: 1.2rem;
+                color: #333;
+            }
+
+            .cart-item button {
+                background-color: #dc3545;
+                color: white;
+                padding: 8px 12px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                .cart-item button:hover {
+                    background-color: #c82333;
+                }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Səbət</h1>
+        <ul class="cart-items">
+            <li class="cart-item">
+                <h3>Kitab Adı</h3>
+                <button>Sil</button>
+            </li>
+            <!-- Daha çox element burada göstəriləcək -->
+        </ul>
+    </div>
+</body>
+</html>

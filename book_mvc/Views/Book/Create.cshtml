@@ -1,0 +1,134 @@
+﻿@model book_mvc.Models.Entity.Book
+
+@{
+    ViewData["Title"] = "Yeni Kitab Əlavə Et";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 70%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"], input[type="number"], input[type="file"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            button:hover {
+                background-color: #218838;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+
+        @using (Html.BeginForm("Create", "Book", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label for="Title">Başlıq</label>
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "Kitabın başlığını daxil edin" })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="ShortDescription">Qısa Təsvir</label>
+                @Html.TextAreaFor(model => model.ShortDescription, new { @class = "form-control", placeholder = "Kitabın qısa təsvirini daxil edin" })
+                @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="Price">Qiymət (AZN)</label>
+                @Html.TextBoxFor(model => model.Price, new { @class = "form-control", type = "number", placeholder = "Kitabın qiymətini daxil edin" })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="ImageUrl">Şəkil URL</label>
+                @Html.TextBoxFor(model => model.ImageUrl, new { @class = "form-control", placeholder = "Kitabın şəkil URL-sini daxil edin" })
+                @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="IsFavorite">Favorit Mi?</label>
+                @Html.CheckBoxFor(model => model.IsFavorite, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IsFavorite, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="AuthorId">Yazar Seçin</label>
+                @if (ViewBag.Authors != null)
+                {
+                    <select asp-for="AuthorId" class="form-control">
+                        @foreach (var author in ViewBag.Authors)
+                        {
+                            <option value="@author.Id">@author.FullName</option>
+                        }
+                    </select>
+
+                }
+                else
+                {
+                    <p>Yazarlar yoxdur.</p>
+                }
+            </div>
+
+            <button type="submit">Kitabı Əlavə Et</button>
+        }
+    </div>
+
+</body>
+</html>

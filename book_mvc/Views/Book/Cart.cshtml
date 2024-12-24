@@ -1,0 +1,200 @@
+﻿@model List<book_mvc.Models.Entity.Book>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sepet</title>
+    <style>
+        /* Genel Stil Ayarları */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            width: 90%;
+            max-width: 1200px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            opacity: 1; /* Opacity 1 olaraq təyin edin */
+            transition: opacity 0.5s ease-in-out; /* Opacity animasyonu */
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* Sepet Boşken Mesaj */
+        .empty-cart {
+            color: #888;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        /* Ürün Listesi */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transform ve opacity animasyonu */
+            opacity: 0;
+            transform: translateY(10px); /* Başlangıçta biraz aşağıda ve şeffaf */
+        }
+
+            li.show {
+                opacity: 1;
+                transform: translateY(0); /* Son durumda normal pozisyonda */
+            }
+
+            li h3 {
+                color: #333;
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            li p {
+                color: #555;
+                font-size: 1rem;
+            }
+
+            li img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                margin-bottom: 15px;
+            }
+
+            li:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+        /* Buton ve Linkler */
+        a {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 30px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+            a:hover {
+                background-color: #45a049;
+            }
+
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        li:hover .delete-btn {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Sepet</h1>
+
+        @if (Model.Count == 0)
+        {
+            <p class="empty-cart">Sepetinizde ürün bulunmamaktadır.</p>
+        }
+        else
+        {
+            <ul id="product-list">
+                @foreach (var book in Model)
+                {
+                    <li class="product-item" id="product-item-@book.Id">
+                        <!-- Kitap Resmi -->
+                        @if (!string.IsNullOrEmpty(book.ImageUrl))
+                        {
+                            <img src="@book.ImageUrl" alt="@book.Title" />
+                        }
+                        <h3>@book.Title</h3>
+                        <p>@book.ShortDescription</p>
+                        <p>@book.Price AZN</p>
+
+                        <!-- Delete Button -->
+                        <button class="delete-btn" onclick="deleteProduct(@book.Id)">X</button>
+                    </li>
+                }
+            </ul>
+        }
+
+        <a href="@Url.Action("Index", "Book")">Ana Sayfaya Dön</a>
+    </div>
+
+    <script>// Sayfa yüklendikten sonra animasyonu başlatmak için
+        window.addEventListener("load", function () {
+            var productItems = document.querySelectorAll('.product-item');
+            productItems.forEach(function (item, index) {
+                setTimeout(function () {
+                    item.classList.add('show');
+                }, index * 200); // Her bir öğe için animasyonu sırayla başlat
+            });
+        });
+
+        // Delete Product Function
+        function deleteProduct(productId) {
+            if (confirm("Bu ürünü silmek istediğinizden emin misiniz?")) {
+                // Send a DELETE request to the server
+                fetch(`/Book/Delete/${productId}`, {
+                    method: 'DELETE',
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Ürün silindi!");
+                            // Remove the product item from the DOM after successful deletion
+                            document.querySelector(`#product-item-${productId}`).remove();
+                        } else {
+                            alert("Ürün silinirken bir hata oluştu.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Bir hata oluştu.");
+                    });
+            }
+        }</script>
+
+</body>
+</html>
